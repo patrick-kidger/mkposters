@@ -14,7 +14,7 @@ pip install .
 
 ## Usage
 
-##### Directory layout
+#### Directory layout
 
 ```
 somedir/
@@ -25,7 +25,7 @@ somedir/
 somedir> python -m mkposters foo
 ```
 
-##### Poster layout
+#### Poster layout
 
 `posters.md` should be formatted in three sections:
 
@@ -43,7 +43,7 @@ somedir> python -m mkposters foo
 
 Each section can/should be Markdown formatted.
 
-##### Icons
+#### Icons
 
 Recalling that Markdown can embed HTML; icons can be embedded via e.g.
 ```
@@ -51,3 +51,13 @@ Recalling that Markdown can embed HTML; icons can be embedded via e.g.
 ```
 where the list of available icons is [here](https://github.com/patrick-kidger/mkposters/tree/main/mkposters/icons).
 
+#### Mathematics
+
+You can use LaTeX-formatted mathematics. This is done via
+
+```
+\\(inline math\\)
+\\[display math\\]
+```
+
+Note the double backslash.
