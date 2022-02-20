@@ -13,7 +13,7 @@ _here = pathlib.Path(__file__).resolve().parent
 def md_to_html(md):
     return markdown.markdown(
         md,
-        extensions=["admonition", "pymdownx.superfences"],
+        extensions=["admonition", "pymdownx.superfences", "smarty"],
     )
 
 
