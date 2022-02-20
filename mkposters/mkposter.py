@@ -35,7 +35,7 @@ def mkposter(datadir):
         banner = md_to_html(banner)
         left_body = md_to_html(left_body)
         right_body = md_to_html(right_body)
-        out = rf"""<!doctype html>
+        html_out = rf"""<!doctype html>
         <html>
         <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback">
@@ -82,10 +82,11 @@ def mkposter(datadir):
             style_pieces.append("')")
             contents = contents[end:]
         style_pieces.append(contents)
+        style_out = "".join(style_pieces)
 
         with style_file.open("w") as f:
-            f.write("".join(style_pieces))
+            f.write(style_out)
         with html_file.open("w") as f:
-            f.write(out)
+            f.write(html_out)
 
-        subprocess.run(["python", "-m", "http.server"], cwd=str(tempdir))
+        subprocess.run(["python", "-m", "http.server"], cwd=tempdir)
