@@ -29,7 +29,7 @@ html {
     margin: 0pt 25pt 20pt 25pt;
 
     .left {
-        flex: 0 0 50%;
+        flex: 0 0 calc(50% - 12.5pt);
         margin-right: 25pt;
     }
 
