@@ -26,7 +26,7 @@ def mkposter(datadir):
 
         md_file = tempdir / "poster.md"
         html_file = tempdir / (md_file.stem + ".html")
-        style_file = tempdir / "style.css"
+        css_file = tempdir / "style.css"
 
         with md_file.open() as f:
             contents = f.read()
@@ -64,28 +64,24 @@ def mkposter(datadir):
             [
                 f"{_here}/dart-sass/sass",
                 f"{_here}/stylesheets/main.scss",
-                str(style_file),
+                str(css_file),
                 "--no-source-map",
             ]
         )
-        with style_file.open() as f:
-            contents = f.read()
-        style_pieces = []
-        svg_load = re.compile(r"""svg-load\(["']([\w\.\-/]+)["']\)""")
-        while (match := svg_load.search(contents)) is not None:
-            (filename,) = match.groups()
-            start, end = match.span()
-            style_pieces.append(contents[:start])
-            style_pieces.append("url('data:image/svg+xml;charset=utf-8,")
-            with pathlib.Path(_here / "icons" / filename).open() as f:
-                style_pieces.append(f.read())
-            style_pieces.append("')")
-            contents = contents[end:]
-        style_pieces.append(contents)
-        style_out = "".join(style_pieces)
+        with css_file.open() as f:
+            css_out = f.read()
 
-        with style_file.open("w") as f:
-            f.write(style_out)
+        def svg_load_fn(match):
+            (filename,) = match.groups()
+            with pathlib.Path(_here / "icons" / filename).open() as f:
+                contents = f.read()
+                return f"url('data:image/svg+xml;charset=utf-8,{contents}')"
+
+        svg_load_re = re.compile(r"""svg-load\(["']([\w\.\-/]+)["']\)""")
+        css_out = svg_load_re.sub(svg_load_fn, css_out)
+
+        with css_file.open("w") as f:
+            f.write(css_out)
         with html_file.open("w") as f:
             f.write(html_out)
 
