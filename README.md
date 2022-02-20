@@ -58,7 +58,7 @@ View the poster as above. **Make sure to use Firefox.**
 Print the page. Select:
 - Destination: "Save to PDF". **Do not use "Microsoft Print to PDF".**
 - Pages: Custom: 1
-- Paper size: <whatever is desired>
+- Paper size: (whatever is desired)
 - Margins: None
 - Options: uncheck "Print headers and footers"
 
