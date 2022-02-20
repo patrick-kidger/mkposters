@@ -41,7 +41,30 @@ somedir> python -m mkposters foo
 ...whatever you want in the right column...
 ```
 
-Each section can/should be Markdown formatted.
+Each section can/should be Markdown formatted. Each `--split--` means that literal string.
+
+#### Viewing poster
+
+You can view your poster by navigating to `localhost:8000/poster.html`.
+
+Note that the layout will be based on your current browser window and may differ from the PDF version, so it's usually best to look at the PDF preview instead. On that note:
+
+#### Saving to PDF
+
+Saving to PDF can be quite finickity, and in general depends on choice of browser etc. **The following is tested on Windows 10.**
+
+View the poster as above. **Make sure to use Firefox.**
+
+Print the page. Select:
+- Destination: "Save to PDF". **Do not use "Microsoft Print to PDF".**
+- Pages: Custom: 1
+- Paper size: <whatever is desired>
+- Margins: None
+- Options: uncheck "Print headers and footers"
+
+Using other browsers (e.g. Chrome) or other PDF exporters (e.g. WeasyPrint) can introduce a variety of issues, such as saving text as images (which are unselectable in the PDF, and appear slightly pixelated), or missing parts of the styling, or having faded colours (looking at you, Chrome).
+
+## Functionality
 
 #### Icons
 
