@@ -27,7 +27,7 @@ somedir> python -m mkposters foo
 
 #### Poster layout
 
-`posters.md` should be formatted in three sections:
+`poster.md` should be formatted in three sections:
 
 ```
 ...anything you want appearing in the banner at the top...
