@@ -45,7 +45,7 @@ Each section can/should be Markdown formatted.
 
 #### Icons
 
-Recalling that Markdown can embed HTML; icons can be embedded via e.g.
+Recalling that Markdown can embed HTML, then icons can be embedded via e.g.
 ```html
 <img style="height: 20pt; width: 20pt" src="icons/fontawesome/brands/github.svg">
 ```
