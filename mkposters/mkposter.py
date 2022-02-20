@@ -44,7 +44,7 @@ def mkposter(datadir):
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         </head>
         <body>
-        <div class="banner md-typeset" align="center">
+        <div class="banner md-typeset">
         {banner}
         </div>
         <hr>
