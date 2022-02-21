@@ -139,3 +139,4 @@ It'd be nice to support:
 - Other poster layouts;
 - Handling other paper sizes;
 - Optionally automatically generating the PDF. (Practically speaking probably by automating the Firefox interaction through Selenium.)
+- Reducing package size by not including all of the `mkposters/third_party/icons` directory by default?
