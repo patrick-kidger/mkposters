@@ -1,4 +1,4 @@
-<h1 align="center">Mkposters</h1>
+<h1 align="center">MkPosters</h1>
 
 Create posters using Markdown. Supports icons, admonitions, and LaTeX mathematics.
 
@@ -22,7 +22,7 @@ Assumes you have:
 Compatibility with other operating systems is probably possible by switching out the version of Dart Sass being used.  
 Compatibility with other browsers is unlikely.
 
-You'll need to be relatively familiar with HTML and (S)CSS to make best use of Mkposters.
+You'll need to be relatively familiar with HTML and (S)CSS to make best use of MkPosters.
 
 ## Installation
 
