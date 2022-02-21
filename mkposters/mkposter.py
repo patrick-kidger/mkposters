@@ -22,7 +22,9 @@ def mkposter(datadir):
         tempdir = pathlib.Path(tempdir)
         datadir = pathlib.Path(datadir)
         shutil.copytree(datadir, tempdir, dirs_exist_ok=True)
-        (tempdir / "icons").symlink_to(_here / "icons", target_is_directory=True)
+        (tempdir / "icons").symlink_to(
+            _here / "third_party" / "icons", target_is_directory=True
+        )
 
         md_file = tempdir / "poster.md"
         html_file = tempdir / (md_file.stem + ".html")
@@ -62,8 +64,8 @@ def mkposter(datadir):
 
         subprocess.run(
             [
-                f"{_here}/dart-sass/sass",
-                f"{_here}/stylesheets/main.scss",
+                f"{_here}/third_party/dart-sass/sass",
+                f"{_here}/style.scss",
                 str(css_file),
                 "--no-source-map",
             ]
@@ -73,7 +75,7 @@ def mkposter(datadir):
 
         def svg_load_fn(match):
             (filename,) = match.groups()
-            with pathlib.Path(_here / "icons" / filename).open() as f:
+            with pathlib.Path(_here / "third_party" / "icons" / filename).open() as f:
                 contents = f.read()
                 return f"url('data:image/svg+xml;charset=utf-8,{contents}')"
 

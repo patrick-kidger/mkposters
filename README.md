@@ -1,8 +1,21 @@
 # Mkposters
 
-Create your (academic) posters using Markdown.
+Create your (academic) posters using Markdown. Supports icons, admonitions, and LaTeX mathematics. The result looks something like this:
 
-The Markdown is parsed into HTML, styled using the (S)CSS from [mkdocs-material](https://github.com/squidfunk/mkdocs-material/), and then opened as a webpage, that you can then export to PDF.
+<img align="center" style="height: 300pt; width: auto;" src="https://github.com/patrick-kidger/mkposters/tree/main/imgs/diffrax.png" alt="Example poster">
+
+At the moment it is restricted to the specific layout of two-columns-with-banner-at-the-top, as that's what I tend to use.
+
+The library operates by parsing your Markdown into HTML, styling it with CSS, and then opening a webpage that you can export to PDF.
+
+## Assumptions
+
+At the moment things are set up assuming you are running Linux (possibly under WSL), and that you are using Firefox.
+
+Compatibility with other operating systems is probably possible by switching out the version of Dart Sass being used.  
+Compatibility with other browsers is unlikely.
+
+To make reasonable use of this you'll need to be relatively familiar with HTML and (S)CSS.
 
 ## Installation
 
@@ -17,12 +30,9 @@ pip install .
 #### Directory layout
 
 ```
-somedir/
-    foo/
-        poster.md
-        ...any other assets e.g. images...
-
-somedir> python -m mkposters foo
+foo/
+    poster.md
+    ...any other assets e.g. images...
 ```
 
 #### Poster layout
@@ -41,11 +51,18 @@ somedir> python -m mkposters foo
 ...whatever you want in the right column...
 ```
 
-Each section can/should be Markdown formatted. Each `--split--` means that literal string.
+Each section can/should be Markdown formatted. Each `--split--` means that as a literal string.
+
+#### Command line
+
+Run from the directory containing `foo`:
+```
+bash> python -m mkposters foo
+```
 
 #### Viewing poster
 
-You can view your poster by navigating to `localhost:8000/poster.html`.
+You can view your poster by running the above command, and then navigating to `localhost:8000/poster.html`.
 
 Note that the layout will be based on your current browser window and may differ from the PDF version, so it's usually best to look at the PDF preview instead. On that note:
 
@@ -72,7 +89,7 @@ Recalling that Markdown can embed HTML, then icons can be embedded via e.g.
 ```html
 <img style="height: 20pt; width: 20pt" src="icons/fontawesome/brands/github.svg">
 ```
-where the list of available icons is [here](https://github.com/patrick-kidger/mkposters/tree/main/mkposters/icons).
+where the list of available icons is [here](https://github.com/patrick-kidger/mkposters/tree/main/mkposters/third_party/icons).
 
 #### Mathematics
 
@@ -101,11 +118,16 @@ where `admonition_type` is any of [these](https://squidfunk.github.io/mkdocs-mat
 
 The Markdown format allows you use arbitrary HTML inside of it. This is useful in all kinds of ways.
 
-- To make best use of this package you'll probably want to be proficient with HTML and CSS. You'll find that you're stuck with the default alignment on the webpage otherwise.
-- This is particularly useful for the banner section, which often includes lots of pieces of information (titles, authors, logos, URLs, etc.) that you'll want to lay out in some manner.
-- Pro tip: embedding HTML can be (ab)used to modify spacing like so. (Analogous to all those little `\vspace`s you use in LaTeX documents.) In this example we move the content up by 10 points.
+- The banner section often contains things laid information (titles, authors, logos, URLs etc.) laid out in complicated ways. Directly writing HTML with embedded `style` attributes is simplest here.
+- Pro tip: embedding HTML can be (ab)used to modify spacing like so. (Analogous to those little `\vspace`s you definitely never use in LaTeX documents.) In this example we move the content up by 10 points.
 ```
 <div style="margin-top: -10pt;">
 ...your content here...
 </div>
 ```
+
+## Future plans?
+
+It'd be nice to support:
+- Other poster layouts;
+- Optionally automatically generating the PDF. (Practically speaking probably by automating the Firefox interaction through Selenium.)

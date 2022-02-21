@@ -13,7 +13,7 @@ html {
 .banner {
     display: flex;
     align-items: center;
-    margin: 20pt 25pt 7.5pt 25pt;
+    margin: 20pt 25pt 10pt 25pt;
     :is(h1, h2, h3, h4, h5, h6) {
         margin: 0;
     }
@@ -25,8 +25,7 @@ html {
 
 .body {
     display: flex;
-    /* Zero top margin as the elements inside tend to have margins instead */
-    margin: 0pt 25pt 20pt 25pt;
+    margin: 5pt 25pt 20pt 25pt;
 
     .left {
         flex: 0 0 calc(50% - 12.5pt);
