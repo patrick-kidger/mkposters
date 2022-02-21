@@ -68,7 +68,7 @@ Note that the layout will be based on your current browser window and may differ
 
 #### Saving to PDF
 
-Saving to PDF can be quite finickity, and in general depends on choice of browser etc. **The following is tested on Windows 10.**
+Saving to PDF can be quite finickity, and in general depends on choice of browser etc. (For what it's worth the following is tested on Windows 10, with the above Linux stuff running on Ubuntu 20.04 on WSL2.)
 
 View the poster as above. **Make sure to use Firefox.**
 
@@ -129,5 +129,6 @@ The Markdown format allows you use arbitrary HTML inside of it. This is useful i
 ## Future plans?
 
 It'd be nice to support:
+- Custom per-poster SCSS
 - Other poster layouts;
 - Optionally automatically generating the PDF. (Practically speaking probably by automating the Firefox interaction through Selenium.)
