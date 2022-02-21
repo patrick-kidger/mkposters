@@ -1,33 +1,38 @@
-# Mkposters
+<h1 align="center">Mkposters</h1>
 
-Create your (academic) posters using Markdown. Supports icons, admonitions, and LaTeX mathematics. The result looks something like this:
+Create posters using Markdown. Supports icons, admonitions, and LaTeX mathematics.
 
-<img align="center" style="height: 300pt; width: auto;" src="https://raw.githubusercontent.com/patrick-kidger/mkposters/main/imgs/diffrax.png" alt="Example poster">
-
-At the moment it is restricted to the specific layout of two-columns-with-banner-at-the-top, as that's what I tend to use. The poster can be either portrait or landscape.
+At the moment it is restricted to the specific layout of two-columns-with-banner-at-the-top, as that's what I tend to use. (Pull requests are welcome if you want to make this tool more general.) The poster can be either portrait or landscape.
 
 The library operates by parsing your Markdown into HTML, styling it with CSS, and then opening a webpage that you can export to PDF.
 
+## Example
+
+<img align="center" style="height: 300pt; width: auto;" src="https://raw.githubusercontent.com/patrick-kidger/mkposters/main/imgs/diffrax.png" alt="Example poster">
+
+The "source code" for this example is [here](https://github.com/patrick-kidger/mkposters/tree/main/examples/diffrax).
+
 ## Assumptions
 
-At the moment things are set up assuming you are running Linux (possibly under WSL), and that you are using Firefox.
+Assumes you have:
+- Linux (WSL is fine)
+- Firefox
+- Python
 
 Compatibility with other operating systems is probably possible by switching out the version of Dart Sass being used.  
 Compatibility with other browsers is unlikely.
 
-To make reasonable use of this you'll need to be relatively familiar with HTML and (S)CSS.
+You'll need to be relatively familiar with HTML and (S)CSS to make best use of Mkposters.
 
 ## Installation
 
 ```
-git clone https://github.com/patrick-kidger/mkposters
-cd mkposters
-pip install .
+pip install mkposters
 ```
 
-## Usage
+## Usage instructions
 
-#### Directory layout
+1. Create the appropriate directory structure
 
 ```
 foo/
@@ -35,9 +40,9 @@ foo/
     ...any other assets e.g. images...
 ```
 
-#### Poster layout
+2. Lay out your poster
 
-`poster.md` should be formatted in three sections:
+`poster.md` should be formatted in three sections, with a literal "`--split--`" between each section.
 
 ```
 ...anything you want appearing in the banner at the top...
@@ -51,38 +56,38 @@ foo/
 ...whatever you want in the right column...
 ```
 
-Each section can/should be Markdown formatted. Each `--split--` means that as a literal string.
-
-#### Command line
+3. Build poster
 
 Run from the directory containing `foo`:
 ```
 bash> python -m mkposters foo
 ```
 
-#### Viewing poster
+4. View poster
 
-You can view your poster by running the above command, and then navigating to `localhost:8000/poster.html`.
+Now open Firefox (*not* Chrome etc.) and navigate to `localhost:8000/poster.html`.
 
-Note that the layout will be based on your current browser window and may differ from the PDF version, so it's usually best to look at the PDF preview instead. On that note:
+What you see will be based on the size of your current browser window and may differ from the PDF version. So next hit `Control-P` and select "Save to PDF". What you see in the print preview is what you'll actually end up with!
 
-#### Saving to PDF
+Make all your edits until you're happy with the result. Now let's save the result to PDF.
 
-Saving to PDF can be quite finickity, and in general depends on choice of browser etc. (For what it's worth the following is tested on Windows 10, with the above Linux stuff running on Ubuntu 20.04 on WSL2.)
+5. Save to PDF
 
-View the poster as above. **Make sure to use Firefox.**
+Saving to PDF can be quite finickity, and in general depends on choice of browser etc. (For what it's worth the following is tested using Firefox on Windows 10 with `mkposters` running on Ubuntu 20.04 on WSL2.)
 
-Print the page. Select:
+In the print dialog window we opened above:
 - Destination: "Save to PDF". **Do not use "Microsoft Print to PDF".**
 - Orientation: (portrait or landscape, as desired)
 - Pages: Custom: 1
-- Paper size: (whatever is desired)
+- Paper size: (whatever is desired; current styling works best on paper roughly A4 sized)
 - Margins: None
 - Options: uncheck "Print headers and footers"
 
-Using other browsers (e.g. Chrome) or other PDF exporters (e.g. WeasyPrint) can introduce a variety of issues, such as saving text as images (which are unselectable in the PDF, and appear slightly pixelated), or missing parts of the styling, or having faded colours (looking at you, Chrome).
+**Once again, make sure you're using Firefox.** Using other browsers (e.g. Chrome) or other PDF exporters (e.g. WeasyPrint) can introduce a variety of issues, such as saving text as images (which are unselectable in the PDF, and appear slightly pixelated), missing parts of the styling, or having faded colours (looking at you, Chrome).
 
 ## Functionality
+
+Mkposters comes with a few extra pieces of functionality built in.
 
 #### Icons
 
@@ -117,10 +122,10 @@ where `admonition_type` is any of [these](https://squidfunk.github.io/mkdocs-mat
 
 #### HTML
 
-The Markdown format allows you use arbitrary HTML inside of it. This is useful in all kinds of ways.
+The Markdown format allows you use arbitrary HTML inside of it.
 
-- The banner section often contains things laid information (titles, authors, logos, URLs etc.) laid out in complicated ways. Directly writing HTML with embedded `style` attributes is simplest here.
-- Pro tip: embedding HTML can be (ab)used to modify spacing like so. (Analogous to those little `\vspace`s you definitely never use in LaTeX documents.) In this example we move the content up by 10 points.
+- The banner section often contains information (titles, authors, logos, URLs etc.) laid out in complicated ways. Directly writing HTML with embedded `style` attributes is simplest here. [See the start of this example.](https://raw.githubusercontent.com/patrick-kidger/mkposters/main/examples/diffrax/poster.md)
+- HTML can be (ab)used to modify spacing like so. (Analogous to those little `\vspace`s you definitely never use in LaTeX documents.) In this example we move the content up by 10 points.
 ```
 <div style="margin-top: -10pt;">
 ...your content here...
@@ -130,7 +135,7 @@ The Markdown format allows you use arbitrary HTML inside of it. This is useful i
 ## Future plans?
 
 It'd be nice to support:
-- Custom per-poster SCSS
+- Custom per-poster SCSS;
 - Other poster layouts;
-- Scale invariance to the size of the paper? At the moment things are designed for roughly A4-sized paper. (In particular the margins etc. specified in terms of `pt`s.)
+- Handling other paper sizes;
 - Optionally automatically generating the PDF. (Practically speaking probably by automating the Firefox interaction through Selenium.)
