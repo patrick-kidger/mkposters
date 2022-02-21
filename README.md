@@ -8,7 +8,7 @@ The library operates by parsing your Markdown into HTML, styling it with CSS, an
 
 ## Example
 
-<img align="center" style="height: 300pt; width: auto;" src="https://raw.githubusercontent.com/patrick-kidger/mkposters/main/imgs/diffrax.png" alt="Example poster">
+<img style="height: 400pt; width: auto;" src="https://raw.githubusercontent.com/patrick-kidger/mkposters/main/imgs/diffrax.png" alt="Example poster">
 
 The "source code" for this example is [here](https://github.com/patrick-kidger/mkposters/tree/main/examples/diffrax).
 
