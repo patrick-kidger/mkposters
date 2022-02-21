@@ -87,7 +87,7 @@ In the print dialog window we opened above:
 
 ## Functionality
 
-Mkposters comes with a few extra pieces of functionality built in.
+MkPosters comes with a few extra pieces of functionality built in.
 
 #### Icons
 
