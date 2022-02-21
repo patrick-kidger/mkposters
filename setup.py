@@ -21,7 +21,7 @@ author = "Patrick Kidger"
 
 author_email = "contact@kidger.site"
 
-description = "Markdown->Poster using mkdocs-material inspired (stolen) styling"
+description = "Make posters from Markdown files."
 
 with open(_here / "README.md", "r") as f:
     readme = f.read()
