@@ -2,7 +2,7 @@
 
 Create your (academic) posters using Markdown. Supports icons, admonitions, and LaTeX mathematics. The result looks something like this:
 
-<img align="center" style="height: 300pt; width: auto;" src="https://github.com/patrick-kidger/mkposters/tree/main/imgs/diffrax.png" alt="Example poster">
+<img align="center" style="height: 300pt; width: auto;" src="https://raw.githubusercontent.com/patrick-kidger/mkposters/main/imgs/diffrax.png" alt="Example poster">
 
 At the moment it is restricted to the specific layout of two-columns-with-banner-at-the-top, as that's what I tend to use.
 
