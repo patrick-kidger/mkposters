@@ -4,7 +4,7 @@ Create your (academic) posters using Markdown. Supports icons, admonitions, and 
 
 <img align="center" style="height: 300pt; width: auto;" src="https://raw.githubusercontent.com/patrick-kidger/mkposters/main/imgs/diffrax.png" alt="Example poster">
 
-At the moment it is restricted to the specific layout of two-columns-with-banner-at-the-top, as that's what I tend to use.
+At the moment it is restricted to the specific layout of two-columns-with-banner-at-the-top, as that's what I tend to use. The poster can be either portrait or landscape.
 
 The library operates by parsing your Markdown into HTML, styling it with CSS, and then opening a webpage that you can export to PDF.
 
@@ -74,6 +74,7 @@ View the poster as above. **Make sure to use Firefox.**
 
 Print the page. Select:
 - Destination: "Save to PDF". **Do not use "Microsoft Print to PDF".**
+- Orientation: (portrait or landscape, as desired)
 - Pages: Custom: 1
 - Paper size: (whatever is desired)
 - Margins: None
@@ -131,4 +132,5 @@ The Markdown format allows you use arbitrary HTML inside of it. This is useful i
 It'd be nice to support:
 - Custom per-poster SCSS
 - Other poster layouts;
+- Scale invariance to the size of the paper? At the moment things are designed for roughly A4-sized paper. (In particular the margins etc. specified in terms of `pt`s.)
 - Optionally automatically generating the PDF. (Practically speaking probably by automating the Firefox interaction through Selenium.)
