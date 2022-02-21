@@ -142,3 +142,10 @@ It'd be nice to support:
 - Reducing package size by not including all of the `mkposters/third_party/icons` directory by default?
 
 Pull requests welcome! See [CONTRIBUTING.md](https://github.com/patrick-kidger/mkposters/blob/main/CONTRIBUTING.md).
+
+## Similar tools
+
+These all support some kind of Markdown -> <X> conversion.
+- For documentation: [MkDocs](https://github.com/mkdocs/mkdocs/) with [mkdocs-material](https://github.com/squidfunk/mkdocs-material/).
+- For presentations: [reveal.js](https://github.com/hakimel/reveal.js)
+- For static sites: [Hugo](https://github.com/gohugoio/hugo) or [Jekyll](https://github.com/jekyll/jekyll)
