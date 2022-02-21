@@ -140,3 +140,5 @@ It'd be nice to support:
 - Handling other paper sizes;
 - Optionally automatically generating the PDF. (Practically speaking probably by automating the Firefox interaction through Selenium.)
 - Reducing package size by not including all of the `mkposters/third_party/icons` directory by default?
+
+Pull requests welcome! See [CONTRIBUTING.md](https://github.com/patrick-kidger/mkposters/blob/main/CONTRIBUTING.md).
