@@ -19,7 +19,7 @@ Assumes you have:
 - Firefox
 - Python
 
-Compatibility with other operating systems is probably possible by switching out the version of Dart Sass being used.  
+Compatibility with other operating systems is probably possible by switching out the version of Dart Sass being used internally.  
 Compatibility with other browsers is unlikely.
 
 You'll need to be relatively familiar with HTML and (S)CSS to make best use of MkPosters.
