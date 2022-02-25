@@ -45,7 +45,7 @@ foo/
 `poster.md` should be formatted in three sections, with a literal "`--split--`" between each section.
 
 ```
-...anything you want appearing in the banner at the top...
+...whatever you want in the banner at the top...
 
 --split--
 
@@ -145,7 +145,7 @@ Pull requests welcome! See [CONTRIBUTING.md](https://github.com/patrick-kidger/m
 
 ## Similar tools
 
-These all support some kind of Markdown -> <X> conversion.
+These all support some kind of conversion Markdown -> something.
 - For documentation: [MkDocs](https://github.com/mkdocs/mkdocs/) with [mkdocs-material](https://github.com/squidfunk/mkdocs-material/).
 - For presentations: [reveal.js](https://github.com/hakimel/reveal.js)
 - For static sites: [Hugo](https://github.com/gohugoio/hugo) or [Jekyll](https://github.com/jekyll/jekyll)
