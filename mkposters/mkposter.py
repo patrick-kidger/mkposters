@@ -6,7 +6,7 @@ import tempfile
 
 import markdown
 
-from .post_install import main as post_install
+from .post_install import post_install
 
 
 _here = pathlib.Path(__file__).resolve().parent
@@ -66,7 +66,7 @@ def mkposter(datadir):
 
         # check if post-install of dart-sass is needed
         if not (_here / "third_party" / "dart-sass" / "SASSBUILT.txt").exists():
-            post_install()
+            post_install(package_dir=str(_here))
 
         subprocess.run(
             [

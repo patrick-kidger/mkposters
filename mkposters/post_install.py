@@ -1,33 +1,52 @@
+import pathlib
 import subprocess
 
 
-def main():
-    bash_cmd = """
+def post_install(package_dir: str, sass_release: str = "1.50.1"):
+    """
+    Run post-install of dart-sass.
+    Detect the compute architecture (linux-arm64, linux-x64, macos-arm64, macos-x64) and download the appropriate distribution release of dart-sass.
+    See also: https://github.com/sass/dart-sass/releases
+
+    Args:
+        package_dir (str): The location of `mkposters`. This is the directory that contains the `third_party` folder which dart-sass should be installed in.
+        sass_release (str): The release version of sass to download.
+    Returns:
+        None
+
+    """  # noqa: E501
+
+    sass_dir = pathlib.Path(package_dir) / "third_party"
+
+    bash_cmd = f"""
     # Detect the compute architecture (linux-arm64, macos-arm64, macos-x64) and download the appropriate distribution release of dart-sass
     # https://github.com/sass/dart-sass/releases/tag/1.50.1
 
-    sass_release="1.50.1"
     arch=$(uname -m)
     kernel=$(uname -s)
 
     echo Detected architecture: $arch and kernel: $kernel.
 
     if [[ "$arch" =~ ^(arm64|aarch64)$ ]] && [ "$kernel" = "Linux" ]; then
-        curl -sL "https://github.com/sass/dart-sass/releases/download/${sass_release}/dart-sass-${sass_release}-linux-arm64.tar.gz" > dart.tar.gz && tar -xzf dart.tar.gz && rm dart.tar.gz
+        curl -sL "https://github.com/sass/dart-sass/releases/download/{sass_release}/dart-sass-{sass_release}-linux-arm64.tar.gz" > {sass_dir}/dart.tar.gz && tar -xzf {sass_dir}/dart.tar.gz --directory {sass_dir} && rm {sass_dir}/dart.tar.gz && chmod 755 {sass_dir}/dart-sass/sass
+        echo "Downloaded https://github.com/sass/dart-sass/releases/download/{sass_release}/dart-sass-{sass_release}-linux-arm64.tar.gz \nSee also:\nhttps://sass-lang.com/install\ninstalled version: {sass_release}" > "{sass_dir}/dart-sass/SASSBUILT.txt"
+
     elif [ "$arch" = "x86_64" ] && [ "$kernel" = "Linux" ]; then
-        curl -sL "https://github.com/sass/dart-sass/releases/download/${sass_release}/dart-sass-${sass_release}-linux-x64.tar.gz" > dart.tar.gz && tar -xzf dart.tar.gz && rm dart.tar.gz
+        curl -sL "https://github.com/sass/dart-sass/releases/download/{sass_release}/dart-sass-{sass_release}-linux-x64.tar.gz" > {sass_dir}/dart.tar.gz && tar -xzf {sass_dir}/dart.tar.gz --directory {sass_dir} && rm {sass_dir}/dart.tar.gz && chmod 755 {sass_dir}/dart-sass/sass
+        echo "Downloaded https://github.com/sass/dart-sass/releases/download/{sass_release}/dart-sass-{sass_release}-linux-x64.tar.gz \nSee also:\nhttps://sass-lang.com/install\ninstalled version: {sass_release}" > "{sass_dir}/dart-sass/SASSBUILT.txt"
+
     elif [ "$arch" = "arm64" ] && [ "$kernel" = "Darwin" ]; then
-        curl -sL "https://github.com/sass/dart-sass/releases/download/${sass_release}/dart-sass-${sass_release}-macos-arm64.tar.gz" > dart.tar.gz && tar -xzf dart.tar.gz && rm dart.tar.gz
+        curl -sL "https://github.com/sass/dart-sass/releases/download/{sass_release}/dart-sass-{sass_release}-macos-arm64.tar.gz" > {sass_dir}/dart.tar.gz && tar -xzf {sass_dir}/dart.tar.gz --directory {sass_dir} && rm {sass_dir}/dart.tar.gz && chmod 755 {sass_dir}/dart-sass/sass
+        echo "Downloaded https://github.com/sass/dart-sass/releases/download/{sass_release}/dart-sass-{sass_release}-macos-arm64.tar.gz \nSee also:\nhttps://sass-lang.com/install\ninstalled version: {sass_release}" > "{sass_dir}/dart-sass/SASSBUILT.txt"
+
     elif [ "$arch" = "x86_64" ] && [ "$kernel" = "Darwin" ]; then
-        curl -sL "https://github.com/sass/dart-sass/releases/download/${sass_release}/dart-sass-${sass_release}-macos-x64.tar.gz" > dart.tar.gz && tar -xzf dart.tar.gz && rm dart.tar.gz
+        curl -sL "https://github.com/sass/dart-sass/releases/download/{sass_release}/dart-sass-{sass_release}-macos-x64.tar.gz" > {sass_dir}/dart.tar.gz && tar -xzf {sass_dir}/dart.tar.gz --directory {sass_dir} && rm {sass_dir}/dart.tar.gz && chmod 755 {sass_dir}/dart-sass/sass
+        echo "Downloaded https://github.com/sass/dart-sass/releases/download/{sass_release}/dart-sass-{sass_release}-macos-x64.tar.gz \nSee also:\nhttps://sass-lang.com/install\ninstalled version: {sass_release}" > "{sass_dir}/dart-sass/SASSBUILT.txt"
+
     else
         echo "Unsupported architecture: $arch and kernel: $kernel"
     fi
 
-    # move the dart-sass binary to the correct location
-    mkloc=$(pip show mkposters | grep Location | cut -d ' ' -f 2)
-    rm -rf $mkloc/mkposters/third_party/dart-sass && mv dart-sass $mkloc/mkposters/third_party
-    echo "Downloaded from https://github.com/sass/dart-sass/releases/download/${sass_release} \nSee also:\nhttps://sass-lang.com/install\ninstalled version: ${sass_release}" > "${mkloc}/mkposters/third_party/dart-sass/SASSBUILT.txt"
     """  # noqa: E501
 
     with subprocess.Popen(
@@ -50,4 +69,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    post_install()
