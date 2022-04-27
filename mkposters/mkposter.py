@@ -27,7 +27,7 @@ def md_to_html(md):
     )
 
 
-def mkposter(datadir, code_style="github"):
+def mkposter(datadir, code_style="github", background_color="#F6F6EF"):
     with tempfile.TemporaryDirectory() as tempdir:
         tempdir = pathlib.Path(tempdir)
         datadir = pathlib.Path(datadir)
@@ -50,6 +50,7 @@ def mkposter(datadir, code_style="github"):
         html_out = rf"""<!doctype html>
         <html>
         <head>
+        <body style="background-color:{background_color}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback">
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/{code_style}.min.css">
