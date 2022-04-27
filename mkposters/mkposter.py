@@ -27,7 +27,23 @@ def md_to_html(md):
     )
 
 
-def mkposter(datadir, code_style="github", background_color="#F6F6EF"):
+def mkposter(
+    datadir: str,
+    code_style: str = "github",
+    background_color: str = "#FFFFFF",
+    port: int = 8000,
+):
+    """
+    Make a poster from a Markdown file.
+    Args:
+        datadir (str): The directory containing the Markdown file.
+        code_style (str): The style of code blocks.
+        background_color (str): The background color of the poster.
+        port (int): The port to use for the server.
+    Returns:
+        Rendered markdown as HTML via `http.server` on specified port.
+    """
+
     with tempfile.TemporaryDirectory() as tempdir:
         tempdir = pathlib.Path(tempdir)
         datadir = pathlib.Path(datadir)
@@ -108,4 +124,5 @@ def mkposter(datadir, code_style="github", background_color="#F6F6EF"):
         with html_file.open("w") as f:
             f.write(html_out)
 
-        subprocess.run(["python", "-m", "http.server"], cwd=tempdir)
+        serve_cmd = f"python -m http.server {port}"
+        subprocess.run(serve_cmd.split(" "), cwd=tempdir)
