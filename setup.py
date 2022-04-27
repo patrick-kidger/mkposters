@@ -42,7 +42,7 @@ classifiers = [
 
 python_requires = "~=3.7"
 
-install_requires = ["markdown>=3.3.6", "pymdown-extensions>=9.1"]
+install_requires = ["markdown>=3.3.6", "pymdown-extensions>=9.1", "fire>=0.4.0"]
 
 setuptools.setup(
     name=name,
