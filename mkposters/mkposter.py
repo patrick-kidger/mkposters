@@ -42,6 +42,10 @@ def mkposter(
         port (int): The port to use for the server.
     Returns:
         Rendered markdown as HTML via `http.server` on specified port.
+    Example:
+        ```bash
+        python -m mkposters "research_app/poster" --code_style "github" --background_color "#F6F6EF" --port 8000
+        ```
     """
 
     with tempfile.TemporaryDirectory() as tempdir:
