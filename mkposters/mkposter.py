@@ -46,7 +46,7 @@ def mkposter(
         ```bash
         python -m mkposters "research_app/poster" --code_style "github" --background_color "#F6F6EF" --port 8000
         ```
-    """
+    """  # noqa: E501
 
     with tempfile.TemporaryDirectory() as tempdir:
         tempdir = pathlib.Path(tempdir)
