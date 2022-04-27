@@ -5,6 +5,7 @@ import subprocess
 import tempfile
 
 import markdown
+from pymdownx.superfences import fence_div_format
 
 from .post_install import post_install
 
@@ -16,6 +17,13 @@ def md_to_html(md):
     return markdown.markdown(
         md,
         extensions=["admonition", "pymdownx.superfences", "smarty"],
+        extension_configs={
+            "pymdownx.superfences": {
+                "custom_fences": [
+                    {"name": "mermaid", "class": "mermaid", "format": fence_div_format}
+                ]
+            }
+        },
     )
 
 
@@ -47,6 +55,9 @@ def mkposter(datadir, code_style="github"):
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/{code_style}.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+        <script src="https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize();</script>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         </head>
