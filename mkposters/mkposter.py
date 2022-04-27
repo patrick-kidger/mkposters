@@ -75,7 +75,7 @@ def mkposter(
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/{code_style}.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+        <script>hljs.highlightAll();</script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
         <script src="https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js"></script>
         <script>mermaid.initialize();</script>
