@@ -19,7 +19,7 @@ def md_to_html(md):
     )
 
 
-def mkposter(datadir):
+def mkposter(datadir, code_style="github"):
     with tempfile.TemporaryDirectory() as tempdir:
         tempdir = pathlib.Path(tempdir)
         datadir = pathlib.Path(datadir)
@@ -44,6 +44,9 @@ def mkposter(datadir):
         <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback">
         <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/{code_style}.min.css' rel='stylesheet'/>
+        <script src='//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js'/>
+        <script>hljs.initHighlightingOnLoad();</script>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         </head>
