@@ -15,7 +15,7 @@ The "source code" for this example is [here](https://github.com/patrick-kidger/m
 ## Assumptions
 
 Assumes you have:
-- Linux (WSL is fine)
+- Linux (WSL is fine) or macOS
 - Firefox
 - Python
 
@@ -29,8 +29,6 @@ You'll need to be relatively familiar with HTML and (S)CSS to make best use of M
 ```
 pip install mkposters
 ```
-
-On initial run of `mkposters`, a post-install script, `post_install.py`, will attempt to automatically detect system architecture and install the appropriate required build of `dart-sass`. This was tested working on both an Apple M1 and Ubuntu x86_64 machine.
 
 ## Usage instructions
 
@@ -64,6 +62,8 @@ Run from the directory containing `foo`:
 ```
 bash> python -m mkposters foo
 ```
+
+(The first time you do this MkPosters will attempt to automatically detect system architecture and install the appropriate required build of `dart-sass`. This was tested working on both an Apple M1 and Ubuntu x86_64 machine.)
 
 4. View poster
 
