@@ -15,7 +15,7 @@ The "source code" for this example is [here](https://github.com/patrick-kidger/m
 ## Assumptions
 
 Assumes you have:
-- Linux (WSL is fine)
+- Linux (WSL is fine) or macOS
 - Firefox
 - Python
 
