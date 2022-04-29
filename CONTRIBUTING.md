@@ -10,7 +10,7 @@ Then clone and install the library in development mode:
 
 ```bash
 git clone https://github.com/your-username-here/mkposters.git
-cd diffrax
+cd mkposters
 pip install -e .
 ```
 

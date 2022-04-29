@@ -3,6 +3,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+from typing import Optional, Union
 
 import markdown
 from pymdownx.superfences import fence_div_format
@@ -29,22 +30,24 @@ def md_to_html(md):
 
 def mkposter(
     datadir: str,
-    code_style: str = "github",
-    background_color: str = "#FFFFFF",
-    port: int = 8000,
+    code_style: Optional[str] = None,
+    mermaid: Optional[bool] = False,
+    scss: Optional[Union[str, pathlib.Path]] = None,
+    port: Optional[int] = 8000,
 ):
     """
     Make a poster from a Markdown file.
     Args:
         datadir (str): The directory containing the Markdown file.
-        code_style (str): The style of code blocks.
-        background_color (str): The background color of the poster.
-        port (int): The port to use for the server.
+        code_style (Optional[str]): Defaults to using `pymdownx.superfences` implementation. Otherwise, choose a style supported by `highlight.js` (e.g. 'vs', 'github', 'atom-one-dark', etc.).
+        mermaid (Optional[bool]): Whether to use the `mermaid` plugin to support rendering mermaid fenced code blocks.
+        scss (Optional[Union[str, pathlib.Path]]): The SCSS styling file to use. Defaults to included `style.scss`.
+        port (Optional[int]): The port to use for the server.
     Returns:
         Rendered markdown as HTML via `http.server` on specified port.
     Example:
         ```bash
-        python -m mkposters "research_app/poster" --code_style "github" --background_color "#F6F6EF" --port 8000
+        python -m mkposters "research_app/poster" --code_style "github" --mermaid --port 8000
         ```
     """  # noqa: E501
 
@@ -64,21 +67,36 @@ def mkposter(
             contents = f.read()
         banner, left_body, right_body = contents.split("--split--")
 
+        custom_html = []
+        if code_style:
+            custom_html += [
+                f"""<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/{code_style}.min.css">"""  # noqa: E501
+            ]
+            custom_html += [
+                """<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>"""  # noqa: E501
+            ]  # noqa: E501
+            custom_html += ["""<script>hljs.highlightAll();</script>"""]
+
+        if mermaid:
+            custom_html += [
+                """<script src="https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js"></script>"""  # noqa: E501
+            ]  # noqa: E501
+            custom_html += [
+                """<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">"""  # noqa: E501
+            ]  # noqa: E501
+            custom_html += ["""<script>mermaid.initialize();</script>"""]
+
+        custom_html = "\n".join(custom_html)
+
         banner = md_to_html(banner)
         left_body = md_to_html(left_body)
         right_body = md_to_html(right_body)
         html_out = rf"""<!doctype html>
         <html>
         <head>
-        <body style="background-color:{background_color}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback">
         <link rel="stylesheet" type="text/css" href="style.css"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/{code_style}.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
-        <script src="https://unpkg.com/mermaid@9.0.1/dist/mermaid.min.js"></script>
-        <script>mermaid.initialize();</script>
+        {custom_html}
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         </head>
@@ -103,10 +121,14 @@ def mkposter(
         if not (_here / "third_party" / "dart-sass" / "SASSBUILT.txt").exists():
             post_install(package_dir=str(_here))
 
+        style_sheet = f"{_here}/style.scss"
+        if scss:
+            style_sheet = scss
+
         subprocess.run(
             [
                 f"{_here}/third_party/dart-sass/sass",
-                f"{_here}/style.scss",
+                style_sheet,
                 str(css_file),
                 "--no-source-map",
             ]
