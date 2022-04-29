@@ -30,7 +30,6 @@ def md_to_html(md):
 def mkposter(
     datadir: str,
     code_style: str = "github",
-    background_color: str = "#FFFFFF",
     port: int = 8000,
 ):
     """
@@ -38,13 +37,12 @@ def mkposter(
     Args:
         datadir (str): The directory containing the Markdown file.
         code_style (str): The style of code blocks.
-        background_color (str): The background color of the poster.
         port (int): The port to use for the server.
     Returns:
         Rendered markdown as HTML via `http.server` on specified port.
     Example:
         ```bash
-        python -m mkposters "research_app/poster" --code_style "github" --background_color "#F6F6EF" --port 8000
+        python -m mkposters "research_app/poster" --code_style "github" --port 8000
         ```
     """  # noqa: E501
 
@@ -70,7 +68,6 @@ def mkposter(
         html_out = rf"""<!doctype html>
         <html>
         <head>
-        <body style="background-color:{background_color}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback">
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/{code_style}.min.css">
