@@ -68,7 +68,7 @@ def mkposter(
         banner, left_body, right_body = contents.split("--split--")
 
         custom_html = []
-        if code_style:
+        if code_style is not None:
             custom_html += [
                 f"""<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/{code_style}.min.css">"""  # noqa: E501
             ]
