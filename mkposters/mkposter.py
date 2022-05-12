@@ -3,7 +3,7 @@ import re
 import shutil
 import subprocess
 import tempfile
-from typing import Optional, Union
+from typing import Optional
 
 import markdown
 from pymdownx.superfences import fence_div_format
@@ -32,7 +32,6 @@ def mkposter(
     datadir: str,
     code_style: Optional[str] = None,
     mermaid: Optional[bool] = False,
-    scss: Optional[Union[str, pathlib.Path]] = None,
     port: Optional[int] = 8000,
 ):
     """
@@ -41,7 +40,6 @@ def mkposter(
         datadir (str): The directory containing the Markdown file.
         code_style (Optional[str]): Defaults to using `pymdownx.superfences` implementation. Otherwise, choose a style supported by `highlight.js` (e.g. 'vs', 'github', 'atom-one-dark', etc.).
         mermaid (Optional[bool]): Whether to use the `mermaid` plugin to support rendering mermaid fenced code blocks.
-        scss (Optional[Union[str, pathlib.Path]]): The SCSS styling file to use. Defaults to included `style.scss`.
         port (Optional[int]): The port to use for the server.
     Returns:
         Rendered markdown as HTML via `http.server` on specified port.
@@ -121,14 +119,10 @@ def mkposter(
         if not (_here / "third_party" / "dart-sass" / "SASSBUILT.txt").exists():
             post_install(package_dir=str(_here))
 
-        style_sheet = f"{_here}/style.scss"
-        if scss:
-            style_sheet = scss
-
         subprocess.run(
             [
                 f"{_here}/third_party/dart-sass/sass",
-                style_sheet,
+                f"{_here}/style.scss",
                 str(css_file),
                 "--no-source-map",
             ]
