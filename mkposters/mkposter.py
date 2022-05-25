@@ -42,6 +42,7 @@ def mkposter(datadir):
         html_out = rf"""<!doctype html>
         <html>
         <head>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback">
         <link rel="stylesheet" type="text/css" href="style.css"/>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
