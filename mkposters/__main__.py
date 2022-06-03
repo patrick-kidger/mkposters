@@ -1,7 +1,7 @@
-import sys
+import fire
 
 from .mkposter import mkposter
 
 
-_, filename = sys.argv
-mkposter(filename)
+if __name__ == "__main__":
+    fire.Fire(mkposter)
