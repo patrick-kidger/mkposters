@@ -1,7 +1,7 @@
 import sys
 
-from .mkposter import mkposter
+from .mkposter import main
 
 
 _, filename = sys.argv
-mkposter(filename)
+main(filename)
