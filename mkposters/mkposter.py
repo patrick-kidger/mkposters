@@ -101,6 +101,10 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
 
 def max_file_time(path: pathlib.Path):
     times = []
+
+    if path.match(".*"):  # This should ignore hidden directories such as .git/ not sure if this breaks css
+        return None
+
     for subpath in path.iterdir():
         if subpath.is_file():
             times.append(subpath.stat().st_mtime)
