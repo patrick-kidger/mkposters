@@ -21,7 +21,7 @@ def md_to_html(md: str):
     )
 
 
-def excludeHiddenDirs(path, subdirs):
+def exclude_hidden_dirs(path, subdirs):
     return [p for p in subdirs if p.startswith(".")]
 
 def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.Path):
@@ -29,7 +29,7 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
         raise ValueError
     if (datadir / "stylesheets").exists():
         raise ValueError
-    shutil.copytree(datadir, tempdir, dirs_exist_ok=True, ignore=excludeHiddenDirs)
+    shutil.copytree(datadir, tempdir, dirs_exist_ok=True, ignore=exclude_hidden_dirs)
 
     md_file = tempdir / "poster.md"
     html_file = tempdir / "index.html"
@@ -41,7 +41,7 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
 
     bodies = [md_to_html(b) for b in bodies]
     banner = bodies[0]
-    left_body = bodies[1]# Still capture left and right seperatly for backwards compadibility
+    left_body = bodies[1]  # Still capture left and right separately for backwards compatibility
     right_body = bodies[-1]
     
     html_out = "\n".join([rf"""<!doctype html>
@@ -63,7 +63,7 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
     <div class="left">
     {left_body}
     </div>""", 
-    *[f"<div class=\"Middle_{i}\">\n{body}\n</div>" for i, body in enumerate(bodies[2:-1])],
+    *[f"<div class=\"middle_{i}\">\n{body}\n</div>" for i, body in enumerate(bodies[2:-1])],
     rf"""<div class="right">
     {right_body}
     </div>
@@ -105,21 +105,11 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
 def max_file_time(path: pathlib.Path):
     times = []
 
-    if path.match(".*"):  # This should ignore hidden directories such as .git/ not sure if this breaks css
-        return None
-
-    for subpath in path.iterdir():
-        if subpath.is_file():
-            times.append(subpath.stat().st_mtime)
-        elif subpath.is_dir():
-            SubdirMaxTime = max_file_time(subpath)
-            if SubdirMaxTime:
-                times.append(SubdirMaxTime)
-
-    if times:  # Handle empty directories
-        return max(times)
-    else:
-        return None
+    if not path.match(".*"):
+        if path.is_file():
+            times.append(path.stat().st_mtime)
+        elif path.is_dir() and (len(path.iterdir()) > 0):
+            times.append(max_file_time(path))
 
 
 def main(datadir):
