@@ -63,7 +63,7 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
     <div class="left">
     {left_body}
     </div>""", 
-    *[f"<div class=\"Middle_{i}\">\n{body}\n</div>" for i, body in enumerate(bodies[2:-1])],
+    *[f"<div class=\"middle_{i}\">\n{body}\n</div>" for i, body in enumerate(bodies[2:-1])],
     rf"""<div class="right">
     {right_body}
     </div>
