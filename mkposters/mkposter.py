@@ -102,8 +102,14 @@ def max_file_time(path: pathlib.Path):
         if subpath.is_file():
             times.append(subpath.stat().st_mtime)
         elif subpath.is_dir():
-            times.append(max_file_time(subpath))
-    return max(times)
+            SubdirMaxTime = max_file_time(subpath)
+            if SubdirMaxTime:
+                times.append(SubdirMaxTime)
+
+    if times:  # Handle empty directories
+        return max(times)
+    else:
+        return None
 
 
 def main(datadir):
