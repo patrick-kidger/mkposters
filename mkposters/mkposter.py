@@ -34,12 +34,14 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
 
     with md_file.open() as f:
         contents = f.read()
-    banner, left_body, right_body = contents.split("--split--")
+    bodies = contents.split("--split--")
 
-    banner = md_to_html(banner)
-    left_body = md_to_html(left_body)
-    right_body = md_to_html(right_body)
-    html_out = rf"""<!doctype html>
+    bodies = [md_to_html(b) for b in bodies]
+    banner = bodies[0]
+    left_body = bodies[1]# Still capture left and right seperatly for backwards compadibility
+    right_body = bodies[-1]
+    
+    html_out = "\n".join([rf"""<!doctype html>
     <html>
     <head>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
@@ -57,14 +59,15 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
     <div class="body md-typeset">
     <div class="left">
     {left_body}
-    </div>
-    <div class="right">
+    </div>""", 
+    *[f"<div class=\"Middle_{i}\">\n{body}\n</div>" for i, body in enumerate(bodies[2:-1])],
+    rf"""<div class="right">
     {right_body}
     </div>
     </div>
     </body>
     </html>
-    """  # noqa: E501
+    """])  # noqa: E501
 
     # check if post-install of dart-sass is needed
     if not (_here / "third_party" / "dart-sass" / "SASSBUILT.txt").exists():
