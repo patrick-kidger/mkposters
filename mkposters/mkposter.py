@@ -21,12 +21,15 @@ def md_to_html(md: str):
     )
 
 
+def excludeHiddenDirs(path, subdirs):
+    return [p for p in subdirs if p.startswith(".")]
+
 def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.Path):
     if (datadir / "icons").exists():
         raise ValueError
     if (datadir / "stylesheets").exists():
         raise ValueError
-    shutil.copytree(datadir, tempdir, dirs_exist_ok=True)
+    shutil.copytree(datadir, tempdir, dirs_exist_ok=True, ignore=excludeHiddenDirs)
 
     md_file = tempdir / "poster.md"
     html_file = tempdir / "index.html"
