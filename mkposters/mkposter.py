@@ -41,7 +41,7 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
 
     bodies = [md_to_html(b) for b in bodies]
     banner = bodies[0]
-    left_body = bodies[1]  # Still capture left and right separately for backwards compatibility
+    left_body = bodies[1]# Still capture left and right seperatly for backwards compadibility
     right_body = bodies[-1]
     
     html_out = "\n".join([rf"""<!doctype html>
@@ -63,7 +63,7 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
     <div class="left">
     {left_body}
     </div>""", 
-    *[f"<div class=\"middle_{i}\">\n{body}\n</div>" for i, body in enumerate(bodies[2:-1])],
+    *[f"<div class=\"Middle_{i}\">\n{body}\n</div>" for i, body in enumerate(bodies[2:-1])],
     rf"""<div class="right">
     {right_body}
     </div>
@@ -105,11 +105,14 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
 def max_file_time(path: pathlib.Path):
     times = []
 
-    if not path.match(".*"):
-        if path.is_file():
-            times.append(path.stat().st_mtime)
-        elif path.is_dir() and (len(path.iterdir()) > 0):
-            times.append(max_file_time(path))
+    for subpath in path.iterdir():
+        if not subpath.match(".*"):
+            if subpath.is_file():
+                times.append(subpath.stat().st_mtime)
+            elif subpath.is_dir() and list(subpath.iterdir()):
+                times.append(max_file_time(subpath))
+
+    return max(times)
 
 
 def main(datadir):
