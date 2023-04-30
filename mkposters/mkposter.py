@@ -26,7 +26,7 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
         raise ValueError
     if (datadir / "stylesheets").exists():
         raise ValueError
-    shutil.copytree(datadir, tempdir, dirs_exist_ok=True)
+    shutil.copytree(datadir, tempdir, dirs_exist_ok=True, ignore=shutil.ignore_patterns(".*"))
 
     md_file = tempdir / "poster.md"
     html_file = tempdir / "index.html"
@@ -99,10 +99,11 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
 def max_file_time(path: pathlib.Path):
     times = []
     for subpath in path.iterdir():
-        if subpath.is_file():
-            times.append(subpath.stat().st_mtime)
-        elif subpath.is_dir():
-            times.append(max_file_time(subpath))
+        if not subpath.match(".*"):
+            if subpath.is_file():
+                times.append(subpath.stat().st_mtime)
+            elif subpath.is_dir():
+                times.append(max_file_time(subpath))
     return max(times)
 
 
