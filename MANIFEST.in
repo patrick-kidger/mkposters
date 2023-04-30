@@ -1,6 +1,6 @@
 include LICENSE
 include mkposters/custom.scss
-include mkposters/style.scss
+include mkposters/join_style.scss
 recursive-include mkposters/third_party *
 global-exclude *.pyc
 global-exclude __pycache__
