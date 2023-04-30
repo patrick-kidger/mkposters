@@ -1,4 +1,3 @@
-import os
 import pathlib
 import re
 import shutil
@@ -26,7 +25,9 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
         raise ValueError
     if (datadir / "stylesheets").exists():
         raise ValueError
-    shutil.copytree(datadir, tempdir, dirs_exist_ok=True, ignore=shutil.ignore_patterns(".*"))
+    shutil.copytree(
+        datadir, tempdir, dirs_exist_ok=True, ignore=shutil.ignore_patterns(".*")
+    )
 
     md_file = tempdir / "poster.md"
     html_file = tempdir / "index.html"
@@ -121,7 +122,7 @@ def main(datadir):
         (tempdir / "icons").symlink_to(
             _here / "third_party" / "icons", target_is_directory=True
         )
-        file_time = max_file_time(datadir)
+        file_time = last_time = max_file_time(datadir)
         need_update = True
         process = None
         try:
@@ -134,7 +135,9 @@ def main(datadir):
                     else:
                         print("Detected change; reloading")
                         process.kill()
-                    process = subprocess.Popen(["python", "-m", "http.server"], cwd=tempdir)
+                    process = subprocess.Popen(
+                        ["python", "-m", "http.server"], cwd=tempdir
+                    )
                 time.sleep(0.1)  # check every tenth of a second
                 file_time = max_file_time(datadir)
                 need_update = file_time > last_time
