@@ -4,23 +4,24 @@ import shutil
 import subprocess
 import tempfile
 import time
+from typing import Optional, Union
 
 import markdown
 
-from .post_install import post_install
+from ._post_install import post_install
 
 
 _here = pathlib.Path(__file__).resolve().parent
 
 
-def md_to_html(md: str):
+def _md_to_html(md: str):
     return markdown.markdown(
         md,
         extensions=["admonition", "pymdownx.superfences", "smarty"],
     )
 
 
-def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.Path):
+def _parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.Path):
     if (datadir / "icons").exists():
         raise ValueError
     if (datadir / "stylesheets").exists():
@@ -37,9 +38,9 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
         contents = f.read()
     banner, left_body, right_body = contents.split("--split--")
 
-    banner = md_to_html(banner)
-    left_body = md_to_html(left_body)
-    right_body = md_to_html(right_body)
+    banner = _md_to_html(banner)
+    left_body = _md_to_html(left_body)
+    right_body = _md_to_html(right_body)
     html_out = rf"""<!doctype html>
     <html>
     <head>
@@ -97,18 +98,18 @@ def parse(datadir: pathlib.Path, tempdir: pathlib.Path, join_scss_file: pathlib.
         f.write(html_out)
 
 
-def max_file_time(path: pathlib.Path):
+def _max_file_time(path: pathlib.Path) -> int:
     times = []
     for subpath in path.iterdir():
         if not subpath.match(".*"):
             if subpath.is_file():
-                times.append(subpath.stat().st_mtime)
+                times.append(subpath.stat().st_mtime_ns)
             elif subpath.is_dir():
-                times.append(max_file_time(subpath))
+                times.append(_max_file_time(subpath))
     return max(times)
 
 
-def main(datadir):
+def mkposter(datadir: Union[str, pathlib.Path], timeout_s: Optional[int] = None):
     with tempfile.TemporaryDirectory() as tempdir:
         tempdir = pathlib.Path(tempdir)
         datadir = pathlib.Path(datadir)
@@ -122,14 +123,16 @@ def main(datadir):
         (tempdir / "icons").symlink_to(
             _here / "third_party" / "icons", target_is_directory=True
         )
-        file_time = last_time = max_file_time(datadir)
+        start_time = time.time()
+        file_time = last_time = _max_file_time(datadir)
         need_update = True
+        keep_running = True
         process = None
         try:
-            while True:
+            while keep_running:
                 if need_update:
                     last_time = file_time
-                    parse(datadir, tempdir, join_scss_file)
+                    _parse(datadir, tempdir, join_scss_file)
                     if process is None:
                         print("Starting")
                     else:
@@ -139,8 +142,10 @@ def main(datadir):
                         ["python", "-m", "http.server"], cwd=tempdir
                     )
                 time.sleep(0.1)  # check every tenth of a second
-                file_time = max_file_time(datadir)
+                file_time = _max_file_time(datadir)
                 need_update = file_time > last_time
+                if timeout_s is not None:
+                    keep_running = time.time() < start_time + timeout_s
         finally:
             if process is not None:
                 process.kill()

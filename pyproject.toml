@@ -1,0 +1,38 @@
+[project]
+name = "mkposters"
+version = "0.0.3"
+description = "Make posters from Markdown files."
+readme = "README.md"
+requires-python ="~=3.8"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Patrick Kidger", email = "contact@kidger.site"},
+]
+
+keywords = ["theme", "markdown", "template", "material-design", "poster", "mkdocs"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+]
+urls = {repository = "https://github.com/patrick-kidger/mkposters"}
+dependencies = ["markdown>=3.3.6", "pymdown-extensions>=9.1"]
+
+[tool.setuptools]
+packages = ["mkposters"]
+dynamic = {version = {attr = "mkposters.__version__"}}
+
+[tool.ruff]
+select = ["E", "F", "I001"]
+ignore = ["E402", "E721", "E731", "E741", "F722"]
+ignore-init-module-imports = true
+
+[tool.ruff.isort]
+combine-as-imports = true
+lines-after-imports = 2
+extra-standard-library = ["typing_extensions"]
+order-by-type = false
