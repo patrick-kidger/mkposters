@@ -1,6 +1,6 @@
 import sys
 
-from .mkposter import mkposter
+from ._mkposter import mkposter
 
 
 _, filename = sys.argv

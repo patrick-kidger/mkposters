@@ -66,7 +66,3 @@ def post_install(package_dir: str, sass_release: str = "1.50.1"):
         exit_code = proc.wait()
         if exit_code != 0:
             raise Exception(f"post_install.py failed with exit code {exit_code}")
-
-
-if __name__ == "__main__":
-    post_install()

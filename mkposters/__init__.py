@@ -1,4 +1,6 @@
-from .mkposter import mkposter
+import importlib.metadata
+
+from ._mkposter import mkposter as mkposter
 
 
-__version__ = "0.0.2"
+__version__ = importlib.metadata.version("mkposters")
