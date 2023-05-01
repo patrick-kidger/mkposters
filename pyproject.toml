@@ -24,7 +24,6 @@ dependencies = ["markdown>=3.3.6", "pymdown-extensions>=9.1"]
 
 [tool.setuptools]
 packages = ["mkposters"]
-dynamic = {version = {attr = "mkposters.__version__"}}
 
 [tool.ruff]
 select = ["E", "F", "I001"]
