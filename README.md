@@ -123,7 +123,7 @@ Admonitions can be added using the syntax
 
 where `admonition_type` is any of [these](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#supported-types) types, e.g. `info`, `tip`, etc.
 
-### Custom (S)CSS styling
+#### Custom (S)CSS styling
 
 If you want to style your poster in a custom way, then you can include a `style.css` or `style.scss` file in your poster directory.
 
