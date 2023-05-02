@@ -37,6 +37,7 @@ pip install mkposters
 ```
 foo/
     poster.md
+    style.{css,scss} (optional)
     ...any other assets e.g. images...
 ```
 
@@ -63,11 +64,11 @@ Run from the directory containing `foo`:
 bash> python -m mkposters foo
 ```
 
-(The first time you do this MkPosters will attempt to automatically detect system architecture and install the appropriate required build of `dart-sass`. This was tested working on both an Apple M1 and Ubuntu x86_64 machine.)
+(The first time you do this MkPosters will attempt to automatically detect system architecture and install the appropriate required build of `dart-sass`. This was tested working on both an Apple M1 and Ubuntu x86_64 machine.) This will also automatically watch the `foo` directory for any updates.
 
 4. View poster
 
-Now open Firefox (*not* Chrome etc.) and navigate to `localhost:8000/poster.html`.
+Now open Firefox (*not* Chrome etc.) and navigate to `localhost:8000`.
 
 What you see will be based on the size of your current browser window and may differ from the PDF version. So next hit `Control-P` and select "Save to PDF". What you see in the print preview is what you'll actually end up with!
 
@@ -122,6 +123,10 @@ Admonitions can be added using the syntax
 
 where `admonition_type` is any of [these](https://squidfunk.github.io/mkdocs-material/reference/admonitions/#supported-types) types, e.g. `info`, `tip`, etc.
 
+### Custom (S)CSS styling
+
+If you want to style your poster in a custom way, then you can include a `style.css` or `style.scss` file in your poster directory.
+
 #### HTML
 
 The Markdown format allows you use arbitrary HTML inside of it.
@@ -137,9 +142,7 @@ The Markdown format allows you use arbitrary HTML inside of it.
 ## Future plans?
 
 It'd be nice to support:
-- Custom per-poster SCSS;
-- Other poster layouts;
-- Handling other paper sizes;
+- Other poster layouts, e.g. multiple columns;
 - Optionally automatically generating the PDF. (Practically speaking probably by automating the Firefox interaction through Selenium.)
 - Reducing package size by not including all of the `mkposters/third_party/icons` directory by default?
 
