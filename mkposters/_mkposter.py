@@ -146,6 +146,8 @@ def mkposter(datadir: Union[str, pathlib.Path], timeout_s: Optional[int] = None)
                 need_update = file_time > last_time
                 if timeout_s is not None:
                     keep_running = time.time() < start_time + timeout_s
+        except KeyboardInterrupt:
+            pass
         finally:
             if process is not None:
                 process.kill()
