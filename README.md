@@ -8,7 +8,7 @@ The library operates by parsing your Markdown into HTML, styling it with CSS, an
 
 ## Example
 
-<img style="width: min(250pt, 100%);" src="https://raw.githubusercontent.com/patrick-kidger/mkposters/main/imgs/diffrax.png" alt="Example poster">
+<img style="width: 100%;" src="https://raw.githubusercontent.com/patrick-kidger/mkposters/main/imgs/diffrax.png" alt="Example poster">
 
 The "source code" for this example is [here](https://github.com/patrick-kidger/mkposters/tree/main/examples/diffrax).
 
@@ -61,10 +61,12 @@ foo/
 
 Run from the directory containing `foo`:
 ```
-bash> python -m mkposters foo
+python -m mkposters foo
 ```
 
-(The first time you do this MkPosters will attempt to automatically detect system architecture and install the appropriate required build of `dart-sass`. This was tested working on both an Apple M1 and Ubuntu x86_64 machine.) This will also automatically watch the `foo` directory for any updates.
+The first time you do this, MkPosters will attempt to detect your system architecture and install the appropriate version of `dart-sass`. This was tested working on both an Apple M1 and an Ubuntu x86_64 machine.
+
+This will also automatically watch the `foo` directory for any updates, and rebuild if necessary.
 
 4. View poster
 
